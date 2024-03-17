@@ -14,7 +14,6 @@ export function HighlightedProjects({ projetos }: HighlightedProjectsProps) {
     <section className='container py-16'>
       <SectionTitle subtitle='destaques' title='Projetos em destaque' />
       <Horizontal className='mb-16' />
-
       <div>
         {projetos?.map((project) => (
           <div key={project.slug}>

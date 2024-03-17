@@ -23,7 +23,7 @@ export function ContactForm() {
   });
 
   const onSubmit = (data: ContactFormData) => {
-    console.log(data);
+    /** implementar futuramente */
   };
 
   return (
