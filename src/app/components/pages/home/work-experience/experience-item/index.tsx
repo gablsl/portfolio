@@ -54,9 +54,6 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
           </a>
 
           <h4 className='text-gray-300'>{cargo}</h4>
-          <span className='text-gray-500'>
-            mai 2021 • jul 2022 • (1 ano e 2 meses)
-          </span>
           <div className='text-gray-400'>
             <RichText content={descricao.raw} />
           </div>
