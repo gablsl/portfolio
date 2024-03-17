@@ -10,19 +10,19 @@ export const metadata: Metadata = {
 
 const getPageData = async (): Promise<ProjectsPagedata> => {
   const query = `
-    query ProjectQuery {
-      projetos {
-        descricaoCurta
-        slug
-        titulo
-        thumbnail {
-          url
-        }
-        tecnologias {
-          nome
-        }
+  query ProjectQuery {
+    projetos {
+      descricaoCurta
+      slug
+      titulo
+      thumbnail {
+        url
+      }
+      tecnologias {
+        nome
       }
     }
+  }
   `;
 
   return fetchHygraphQuery(query, 60 * 60 * 24);
