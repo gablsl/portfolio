@@ -39,7 +39,7 @@ const getPageData = async (): Promise<HomePageData> => {
         }
       }
     }
-    experienciaDeTrabalhos {
+      experienciaDeTrabalhos {
       logoDaEmpresa {
         url
       }
