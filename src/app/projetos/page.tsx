@@ -12,7 +12,7 @@ const getPageData = async (): Promise<ProjectsPagedata> => {
   const query = `
   query ProjectQuery {
     projetos {
-      descricaoCurta
+       descricaoCurta
       slug
       titulo
       thumbnail {
