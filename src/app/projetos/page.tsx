@@ -5,14 +5,14 @@ import { ProjectsPagedata } from '../types/pageInfo';
 import { fetchHygraphQuery } from '../utils/fetch-hygraph-query';
 
 export const metadata: Metadata = {
-  title: 'Projetos',
+    title: 'Projetos',
 };
 
 const getPageData = async (): Promise<ProjectsPagedata> => {
-  const query = `
+    const query = `
   query ProjectQuery {
     projetos {
-       descricaoCurta
+      descricaoCurta
       slug
       titulo
       thumbnail {
@@ -25,16 +25,16 @@ const getPageData = async (): Promise<ProjectsPagedata> => {
   }
   `;
 
-  return fetchHygraphQuery(query, 60 * 60 * 24);
+    return fetchHygraphQuery(query, 60 * 60 * 24);
 };
 
 export default async function Projects() {
-  const { projetos } = await getPageData();
+    const { projetos } = await getPageData();
 
-  return (
-    <>
-      <PageIntroduction />
-      <ProjectList projetos={projetos} />
-    </>
-  );
+    return (
+        <>
+            <PageIntroduction />
+            <ProjectList projetos={projetos} />
+        </>
+    );
 }
