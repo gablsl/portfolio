@@ -10,18 +10,18 @@ const getPageData = async (): Promise<HomePageData> => {
   query pageInfoQuery {
     page(where: {slug: "home"}) {
       introducao {
-        raw
+          raw
       }
       tecnologiasConhecidas {
-        iconeSvg
-        nome
-        dataDeInicio
+         iconeSvg
+         nome
+         dataDeInicio
       }
       tecnologias {
-        nome
+         nome
       }
       imagemDePerfil {
-        url
+         url
       }
       redeSocials {
         url
