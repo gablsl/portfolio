@@ -6,11 +6,11 @@ import { HomePageData } from './types/pageInfo';
 import { fetchHygraphQuery } from './utils/fetch-hygraph-query';
 
 const getPageData = async (): Promise<HomePageData> => {
-  const query = `
+    const query = `
   query pageInfoQuery {
     page(where: {slug: "home"}) {
       introducao {
-          raw
+        raw
       }
       tecnologiasConhecidas {
          iconeSvg
@@ -58,18 +58,18 @@ const getPageData = async (): Promise<HomePageData> => {
   }
   `;
 
-  return fetchHygraphQuery(query, 60 * 60 * 24);
+    return fetchHygraphQuery(query, 60 * 60 * 24);
 };
 
 export default async function Home() {
-  const { page: pageData, experienciaDeTrabalhos } = await getPageData();
+    const { page: pageData, experienciaDeTrabalhos } = await getPageData();
 
-  return (
-    <>
-      <HeroSection homeInfo={pageData} />
-      <KnowsTechs techs={pageData.tecnologiasConhecidas} />
-      <HighlightedProjects projetos={pageData.projetosEmDestaque} />
-      <WorkExperience experiences={experienciaDeTrabalhos} />
-    </>
-  );
+    return (
+        <>
+            <HeroSection homeInfo={pageData} />
+            <KnowsTechs techs={pageData.tecnologiasConhecidas} />
+            <HighlightedProjects projetos={pageData.projetosEmDestaque} />
+            <WorkExperience experiences={experienciaDeTrabalhos} />
+        </>
+    );
 }
