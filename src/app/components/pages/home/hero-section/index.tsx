@@ -82,6 +82,7 @@ export function HeroSection({ homeInfo }: HomeSectionProps) {
             height={404}
             src={homeInfo.imagemDePerfil.url}
             alt='Foto de perfil'
+            loading='lazy'
             className='w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover'
           />
         </motion.div>

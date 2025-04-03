@@ -1,10 +1,10 @@
 import { Inter, IBM_Plex_Mono } from 'next/font/google';
-import './globals.css';
 import { Header } from './components/header';
 import { ContactForm } from './components/contact-form';
 import { Footer } from './components/footer';
 import { BackToTop } from './components/back-to-top';
 import { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +16,18 @@ export const metadata: Metadata = {
       url: '/images/icons/project-title-icon.svg',
     },
   ],
+  description:
+    'Desenvolvedor Full Stack apaixonado por tecnologia e código limpo. Confira meus projetos construídos com Next.js, Tailwind CSS, TypeScript e mais!',
+  openGraph: {
+    title: {
+      default: 'Home',
+      template: '%s | Gabriel Sousa',
+    },
+    description:
+      'Desenvolvedor Full Stack apaixonado por tecnologia e código limpo. Confira meus projetos construídos com Next.js, Tailwind CSS, TypeScript e mais!',
+    url: 'https://portfolio-gablsl1s-projects.vercel.app/',
+    type: 'website',
+  },
 };
 
 const inter = Inter({

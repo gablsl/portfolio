@@ -36,6 +36,7 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
             height={40}
             src={logoDaEmpresa.url}
             alt={`Logo da empresa ${empresa}`}
+            loading='lazy'
             className='rounded-full '
           />
         </div>

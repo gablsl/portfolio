@@ -28,6 +28,7 @@ export function ProjectSections({ sessoes }: ProjectSectionsProps) {
             height={672}
             alt={`Imagem da sessão ${section.titulo}`}
             className='w-full aspect-auto rounded-lg object-cover'
+            loading='lazy'
             unoptimized
           />
         </motion.div>

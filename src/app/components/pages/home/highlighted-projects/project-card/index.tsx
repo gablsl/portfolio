@@ -33,6 +33,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           height={304}
           src={project.thumbnail.url}
           alt={`Thumbnail do projeto ${project.titulo}`}
+          loading='lazy'
           className='w-full h-full object-cover rounded-lg'
         />
       </motion.div>
@@ -46,6 +47,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <Image
             width={20}
             height={20}
+            loading='lazy'
             alt=''
             src='/images/icons/project-title-icon.svg'
           />
