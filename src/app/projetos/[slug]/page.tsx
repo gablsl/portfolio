@@ -1,87 +1,51 @@
+import { GET_PROJECT_DETAILS, GET_PROJECTS_SLUG } from '@/app/apollo/queries';
 import { ProjectDetails } from '@/app/components/pages/projetos/project-details';
 import { ProjectSections } from '@/app/components/pages/projetos/project-section';
-import { ProjectPageData, ProjectsPageStaticData } from '@/app/types/pageInfo';
-import { fetchHygraphQuery } from '@/app/utils/fetch-hygraph-query';
 import { Metadata } from 'next';
-
-type ProjectProps = {
-  params: {
-    slug: string;
-  };
-};
-
-const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
-  const query = `
-    query ProjectQuery() {
-      projeto(where: {slug: "${slug}"}) {
-        thumbnailDaPagina {
-          url
-        }
-        thumbnail {
-          url
-        }
-        sessoes {
-          titulo
-          imagem {
-            url
-          }
-        }
-        titulo
-        descricaoCurta
-        descricao {
-          raw
-          text
-        }
-        tecnologias {
-          nome
-        }
-        projetoUrl
-        githubUrl
-      }
-    }
-   `;
-
-  return fetchHygraphQuery(query, 60 * 60 * 24);
-};
+import { ProjectProps } from '@/app/apollo/types';
+import client from '@/app/apollo/client';
 
 export default async function Projeto({ params: { slug } }: ProjectProps) {
-  const { projeto } = await getProjectDetails(slug);
+  const { data } = await client.query({
+    query: GET_PROJECT_DETAILS,
+    variables: { slug },
+  });
+
+  console.log(data);
 
   return (
     <>
-      <ProjectDetails projeto={projeto} />
-      <ProjectSections sessoes={projeto.sessoes} />
+      <ProjectDetails projeto={data.projeto} />
+      <ProjectSections sessoes={data.projeto.sessoes} />
     </>
   );
 }
 
 export async function generateStaticParams() {
-  const query = `
-    query ProjectsSlugsQuery() {
-      projetos(first: 100) {
-        slug
-      }
-    }
-  `;
+  const { data } = await client.query({
+    query: GET_PROJECTS_SLUG,
+  });
 
-  const { projetos } = await fetchHygraphQuery<ProjectsPageStaticData>(query);
-
-  return projetos;
+  return data.projetos.map((projeto: { slug: string }) => ({
+    slug: projeto.slug,
+  }));
 }
 
 export async function generateMetadata({
   params: { slug },
 }: ProjectProps): Promise<Metadata> {
-  const data = await getProjectDetails(slug);
-  const project = data.projeto;
+  const { data } = await client.query({
+    query: GET_PROJECT_DETAILS,
+    variables: { slug },
+  });
 
   return {
-    title: project.titulo,
-    description: project.descricao.text,
+    title: data.projeto.titulo,
+    description: data.projeto.descricao.text,
     openGraph: {
       images: [
         {
-          url: project.thumbnail.url,
+          url: data.projeto.thumbnail.url,
           width: 1200,
           height: 630,
         },

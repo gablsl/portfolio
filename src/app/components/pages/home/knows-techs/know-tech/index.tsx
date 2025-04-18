@@ -1,6 +1,6 @@
 import { CMSIcon } from '@/app/components/cms-icon';
 import { TecnologiasConhecidas } from '@/app/types/projects';
-import { getRelativeTime } from '@/app/utils/ger-relative-time';
+import { getRelativeTime } from '@/app/utils/get-relative-time';
 
 type KnowTechProps = {
   tech: TecnologiasConhecidas;

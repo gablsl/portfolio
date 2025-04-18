@@ -4,6 +4,7 @@ import { ContactForm } from './components/contact-form';
 import { Footer } from './components/footer';
 import { BackToTop } from './components/back-to-top';
 import { Metadata } from 'next';
+import { Providers } from './utils/providers';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -51,7 +52,7 @@ export default function RootLayout({
       <body>
         <BackToTop />
         <Header />
-        {children}
+        <Providers>{children}</Providers>
         <ContactForm />
         <Footer />
       </body>

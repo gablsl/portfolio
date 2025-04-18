@@ -2,13 +2,13 @@
 
 import { Button } from '@/app/components/button';
 import { TechBadge } from '@/app/components/tech-badge';
-import { HiArrowNarrowRight } from 'react-icons/hi';
-import Image from 'next/image';
+import { HiArrowNarrowRight, HiDownload } from 'react-icons/hi';
 import { HomePageInfo } from '@/app/types/pageInfo';
 import { RichText } from '@/app/components/rich-text';
 import { CMSIcon } from '@/app/components/cms-icon';
 import { motion } from 'framer-motion';
 import { techBadgeAnimation } from '@/app/lib/animations';
+import Image from 'next/image';
 
 type HomeSectionProps = {
   homeInfo: HomePageInfo;
@@ -54,6 +54,15 @@ export function HeroSection({ homeInfo }: HomeSectionProps) {
               Entre em contato
               <HiArrowNarrowRight size={18} />
             </Button>
+            <a
+              href='/pdf/gabriel-sousa.pdf'
+              download='gabriel-sousa-currículo.pdf'
+            >
+              <Button className='w-max shadow-button'>
+                Baixar currículo
+                <HiDownload size={18} />
+              </Button>
+            </a>
 
             <div className='text-gray-600 text-2xl flex items-center h-20 gap-3'>
               {homeInfo.redeSocials.map((contact, index) => (

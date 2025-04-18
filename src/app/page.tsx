@@ -1,75 +1,24 @@
+import { GET_PAGE_INFO } from './apollo/queries';
 import { HeroSection } from './components/pages/home/hero-section';
 import { HighlightedProjects } from './components/pages/home/highlighted-projects';
 import { KnowsTechs } from './components/pages/home/knows-techs';
 import { WorkExperience } from './components/pages/home/work-experience';
-import { HomePageData } from './types/pageInfo';
-import { fetchHygraphQuery } from './utils/fetch-hygraph-query';
-
-const getPageData = async (): Promise<HomePageData> => {
-  const query = `
-  query pageInfoQuery {
-    page(where: {slug: "home"}) {
-      introducao {
-        raw
-      }
-      tecnologiasConhecidas {
-         iconeSvg
-         nome
-         dataDeInicio
-      }
-      tecnologias {
-         nome
-      }
-      imagemDePerfil {
-         url
-      }
-      redeSocials {
-        url
-        iconeSvg
-      }
-      projetosEmDestaque {
-        slug
-        thumbnail {
-          url
-        }
-        titulo
-        descricaoCurta
-          tecnologias {
-            nome
-        }
-      }
-    }
-      experienciaDeTrabalhos {
-      logoDaEmpresa {
-        url
-      }
-        cargo
-        empresa
-        empresaUrl
-        dataDeInicio
-      dataFinal
-      descricao {
-        raw
-      }
-      tecnologias {
-        nome
-      }
-    }
-  }
-  `;
-
-  return fetchHygraphQuery(query, 60 * 60 * 24);
-};
+import client from './apollo/client';
 
 export default async function Home() {
-  const { page: pageData, experienciaDeTrabalhos } = await getPageData();
+  const { data } = await client.query({
+    query: GET_PAGE_INFO,
+    variables: { timestamp: Date.now() }, // Forces fresh fetch
+  });
+
+  console.log(data.page);
 
   return (
     <>
-      <HeroSection homeInfo={pageData} />
-      <KnowsTechs techs={pageData.tecnologiasConhecidas} />
-      <HighlightedProjects projetos={pageData.projetosEmDestaque} />
-      <WorkExperience experiences={experienciaDeTrabalhos} />
+      <HeroSection homeInfo={data.page} />
+      <KnowsTechs techs={data.page.tecnologiasConhecidas} />
+      <HighlightedProjects projetos={data.page.projetosEmDestaque} />
+      <WorkExperience experiences={data.experienciaDeTrabalhos} />
     </>
   );
 }

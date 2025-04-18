@@ -1,40 +1,22 @@
 import { Metadata } from 'next';
 import { PageIntroduction } from '../components/pages/projetos/page-introduction';
 import { ProjectList } from '../components/pages/projetos/projects-list';
-import { ProjectsPagedata } from '../types/pageInfo';
-import { fetchHygraphQuery } from '../utils/fetch-hygraph-query';
+import { GET_PROJECTS } from '../apollo/queries';
+import client from '../apollo/client';
 
 export const metadata: Metadata = {
-    title: 'Projetos',
-};
-
-const getPageData = async (): Promise<ProjectsPagedata> => {
-    const query = `
-  query ProjectQuery {
-    projetos {
-      descricaoCurta
-      slug
-      titulo
-      thumbnail {
-        url
-      }
-      tecnologias {
-        nome
-      }
-    }
-  }
-  `;
-
-    return fetchHygraphQuery(query, 60 * 60 * 24);
+  title: 'Projetos',
 };
 
 export default async function Projects() {
-    const { projetos } = await getPageData();
+  const { data } = await client.query({
+    query: GET_PROJECTS,
+  });
 
-    return (
-        <>
-            <PageIntroduction />
-            <ProjectList projetos={projetos} />
-        </>
-    );
+  return (
+    <>
+      <PageIntroduction />
+      <ProjectList projetos={data.projetos} />
+    </>
+  );
 }
