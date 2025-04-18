@@ -11,8 +11,6 @@ export default async function Home() {
     variables: { timestamp: Date.now() }, // Forces fresh fetch
   });
 
-  console.log(data.page);
-
   return (
     <>
       <HeroSection homeInfo={data.page} />

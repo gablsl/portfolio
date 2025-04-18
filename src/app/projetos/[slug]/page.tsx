@@ -11,8 +11,6 @@ export default async function Projeto({ params: { slug } }: ProjectProps) {
     variables: { slug },
   });
 
-  console.log(data);
-
   return (
     <>
       <ProjectDetails projeto={data.projeto} />
