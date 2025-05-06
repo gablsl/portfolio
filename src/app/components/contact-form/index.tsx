@@ -25,9 +25,7 @@ export function ContactForm() {
     resolver: zodResolver(contactFormSchema),
   });
 
-  const onSubmit = (data: ContactFormData, e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: ContactFormData) => {
     try {
       emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
