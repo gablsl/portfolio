@@ -50,19 +50,21 @@ export function HeroSection({ homeInfo }: HomeSectionProps) {
             ))}
           </div>
           <div className='mt-6 lg:mt-10 flex sm: items-center sm:gap-5 flex-col sm:flex-row'>
-            <Button className='w-max shadow-button' onClick={handleContact}>
-              Entre em contato
-              <HiArrowNarrowRight size={18} />
-            </Button>
-            <a
-              href='/pdf/gabriel-sousa.pdf'
-              download='gabriel-sousa-currículo.pdf'
-            >
-              <Button className='w-max shadow-button'>
-                Baixar currículo
-                <HiDownload size={18} />
+            <div className='flex flex-col md:flex-row gap-6 md:gap-4 items-center'>
+              <Button className='w-max shadow-button' onClick={handleContact}>
+                Entre em contato
+                <HiArrowNarrowRight size={18} />
               </Button>
-            </a>
+              <a
+                href='/pdf/gabriel-sousa.pdf'
+                download='gabriel-sousa-currículo.pdf'
+              >
+                <Button className='w-max shadow-button'>
+                  Baixar currículo
+                  <HiDownload size={18} />
+                </Button>
+              </a>
+            </div>
 
             <div className='text-gray-600 text-2xl flex items-center h-20 gap-3'>
               {homeInfo.redeSocials.map((contact, index) => (
