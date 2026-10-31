@@ -2,17 +2,20 @@
 
 import { Link } from '@/app/components/link';
 import { TechBadge } from '@/app/components/tech-badge';
-import { Projeto } from '@/app/types/projects';
 import Image from 'next/image';
 import { HiArrowNarrowRight } from 'react-icons/hi';
 import { motion } from 'framer-motion';
 import { fadeUpAnimation, techBadgeAnimation } from '@/app/lib/animations';
+import { Dictionary } from '@/app/i18n/dictionaries';
+import { Lang } from '@/app/lib/schemas';
 
 type ProjectCardProps = {
-  project: Projeto;
+  project: Awaited<ReturnType<typeof import('@/app/lib/content').getFeaturedProjects>>[number];
+  dict: Dictionary;
+  lang: Lang;
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, dict, lang }: ProjectCardProps) {
   return (
     <motion.div
       className='flex gap-6 lg:gap-12 flex-col lg:flex-row'
@@ -31,8 +34,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <Image
           width={420}
           height={304}
-          src={project.thumbnail.url}
-          alt={`Thumbnail do projeto ${project.titulo}`}
+          src={project.data.thumbnail}
+          alt={`${project.data.title} thumbnail`}
           loading='lazy'
           className='w-full h-full object-cover rounded-lg'
         />
@@ -40,7 +43,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className='flex-1 lg:py-[18px]'>
         <motion.h3
-          className='flex items-center gap-3 font-medium text-lg text-gray-50'
+          className='flex items-center gap-3 font-medium text-lg text-zinc-100'
           {...fadeUpAnimation}
           transition={{ duration: 0.7 }}
         >
@@ -51,30 +54,30 @@ export function ProjectCard({ project }: ProjectCardProps) {
             alt=''
             src='/images/icons/project-title-icon.svg'
           />
-          {project.titulo}
+          {project.data.title}
         </motion.h3>
 
         <motion.p
-          className='text-gray-400 my-6'
+          className='text-zinc-400 my-6'
           {...fadeUpAnimation}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          {project.descricaoCurta}
+          {project.data.shortDescription}
         </motion.p>
 
         <div className='flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[350px]'>
-          {project.tecnologias.map((tech, i) => (
+          {project.data.technologies.map((tech, i) => (
             <TechBadge
-              name={tech.nome}
-              key={`${project.titulo}-tech-${tech.nome}`}
+              name={tech}
+              key={`${project.data.title}-tech-${tech}`}
               {...techBadgeAnimation}
               transition={{ duration: 0.5, delay: i * 0.2 }}
             />
           ))}
         </div>
 
-        <Link href={`/projetos/${project.slug}`}>
-          Ver projeto
+        <Link href={`/${lang}/projects/${project.slug}`}>
+          {dict.projects.viewProject}
           <HiArrowNarrowRight />
         </Link>
       </div>

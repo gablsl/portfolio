@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-900 text-gray-100;
+    @apply bg-zinc-950 text-zinc-100;
   }
 }
 
@@ -17,7 +17,7 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #374151;
+  background: #18181b;
   border-radius: 5px;
 }
 

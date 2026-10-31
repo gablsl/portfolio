@@ -1,25 +1,24 @@
-import { CMSIcon } from '@/app/components/cms-icon';
-import { TecnologiasConhecidas } from '@/app/types/projects';
-import { getRelativeTime } from '@/app/utils/get-relative-time';
+'use client';
+
+import { SVGIcon } from '@/app/components/svg-icon';
+import { HomeData } from '@/app/lib/schemas';
 
 type KnowTechProps = {
-  tech: TecnologiasConhecidas;
+  tech: HomeData['knownTechs'][number];
 };
 
 export function KnowTech({ tech }: KnowTechProps) {
-  const relativeTime = getRelativeTime(
-    new Date(tech.dataDeInicio),
-    'pt-BR'
-  ).replace('há', '');
-
   return (
-    <div className='p-6 rounded-lg bg-gray-600/20 text-gray-500 flex flex-col gap-2 hover:text-emerald-500 hover:bg-gray-600/30 transition-all'>
-      <div className='flex items-center justify-between'>
-        <p className='font-medium'>{tech.nome}</p>
-        <CMSIcon icon={tech.iconeSvg} />
+    <div className='group flex items-center gap-4 p-4 rounded-xl bg-zinc-900/40 border border-white/5 hover:border-emerald-500/30 hover:bg-zinc-900/70 transition-all'>
+      <div className='flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-800/50 text-zinc-300 group-hover:text-emerald-400 group-hover:bg-emerald-500/10 transition-colors'>
+        <SVGIcon icon={tech.icon || ''} />
       </div>
 
-      <span>{relativeTime} de experiência</span>
+      <div className='flex-1 min-w-0'>
+        <p className='font-medium text-zinc-200 group-hover:text-zinc-50 transition-colors'>
+          {tech.name}
+        </p>
+      </div>
     </div>
   );
 }

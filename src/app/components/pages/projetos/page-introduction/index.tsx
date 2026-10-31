@@ -4,13 +4,20 @@ import { Link } from '@/app/components/link';
 import { SectionTitle } from '@/app/components/section-title';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { motion } from 'framer-motion';
+import { Dictionary } from '@/app/i18n/dictionaries';
+import { Lang } from '@/app/lib/schemas';
 
-export function PageIntroduction() {
+type PageIntroductionProps = {
+  dict: Dictionary;
+  lang: Lang;
+};
+
+export function PageIntroduction({ dict, lang }: PageIntroductionProps) {
   return (
     <section className='w-full h-[450px] lg:h-[630px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-2'>
       <SectionTitle
-        subtitle='projetos'
-        title='Meus Projetos'
+        subtitle={dict.projects.subtitle}
+        title={dict.projects.title}
         className='text-center items-center [&>h3]:text-4xl'
       />
 
@@ -21,15 +28,13 @@ export function PageIntroduction() {
         exit={{ opacity: 0, y: 100 }}
         transition={{ duration: 0.6 }}
       >
-        <p className='text-gray-400 text-center max-w-[640px] my-6 text-sm sm:text-base'>
-          Aqui você poderá ver alguns dos trabalhos que eu desenvolvi. Navegue à
-          vontade e explore os projetos para ver como foram criados, as
-          tecnologias utilizadas e as funcionalidades implementadas.
+        <p className='text-zinc-400 text-center max-w-[640px] my-6 text-sm sm:text-base'>
+          {dict.projects.intro}
         </p>
 
-        <Link href='/'>
+        <Link href={`/${lang}/projects`}>
           <HiArrowNarrowLeft size={20} />
-          Voltar para home
+          {dict.projects.back}
         </Link>
       </motion.div>
     </section>

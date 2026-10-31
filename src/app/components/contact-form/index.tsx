@@ -11,6 +11,7 @@ import { fadeUpAnimation } from '@/app/lib/animations';
 import { ToastContainer, toast } from 'react-toastify';
 import React from 'react';
 import emailjs from '@emailjs/browser';
+import { Dictionary } from '@/app/i18n/dictionaries';
 
 const contactFormSchema = z.object({
   name: z.string().min(3).max(100),
@@ -20,7 +21,11 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-export function ContactForm() {
+type ContactFormProps = {
+  dict: Dictionary;
+};
+
+export function ContactForm({ dict }: ContactFormProps) {
   const { handleSubmit, register } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
   });
@@ -35,24 +40,24 @@ export function ContactForm() {
           email: data.email,
           message: data.message,
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string,
       );
 
-      toast.success('E-mail enviado com sucesso!');
+      toast.success(dict.contact.success);
     } catch (error) {
-      toast.error('Houve um problema ao enviar o e-mail');
+      toast.error(dict.contact.error);
     }
   };
 
   return (
     <section
       id='contact'
-      className='py-16 px-6 md:py-32 flex items-center justify-center bg-gray-950'
+      className='py-16 px-6 md:py-32 flex items-center justify-center bg-zinc-950'
     >
       <div className='w-full max-w-[420px] mx-auto'>
         <SectionTitle
-          subtitle='contato'
-          title='Se interessou por mim? Entre em contato!'
+          subtitle={dict.contact.subtitle}
+          title={dict.contact.title}
           className='items-center text-center'
         />
         <motion.form
@@ -61,26 +66,26 @@ export function ContactForm() {
           {...fadeUpAnimation}
         >
           <input
-            placeholder='Nome'
+            placeholder={dict.contact.name}
             type='text'
-            className='w-full h-14 bg-gray-800 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-emerald-600'
+            className='w-full h-14 bg-zinc-900 rounded-lg placeholder:text-zinc-500 text-zinc-100 p-4 focus:outline-none focus:ring-2 ring-emerald-600'
             {...register('name')}
           />
           <input
-            placeholder='E-mail'
+            placeholder={dict.contact.email}
             type='email'
-            className='w-full h-14 bg-gray-800 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-emerald-600'
+            className='w-full h-14 bg-zinc-900 rounded-lg placeholder:text-zinc-500 text-zinc-100 p-4 focus:outline-none focus:ring-2 ring-emerald-600'
             {...register('email')}
           />
           <textarea
-            placeholder='Mensagem'
-            className='resize-none w-full h-[138px] bg-gray-800 rounded-lg placeholder:text-gray-400 text-gray-50 p-4 focus:outline-none focus:ring-2 ring-emerald-600'
+            placeholder={dict.contact.message}
+            className='resize-none w-full h-[138px] bg-zinc-900 rounded-lg placeholder:text-zinc-500 text-zinc-100 p-4 focus:outline-none focus:ring-2 ring-emerald-600'
             maxLength={500}
             {...register('message')}
           />
 
           <Button className='w-max mx-auto mt-6 shadow-button'>
-            Enviar mensagem
+            {dict.contact.send}
             <HiArrowNarrowRight size={18} />
           </Button>
         </motion.form>

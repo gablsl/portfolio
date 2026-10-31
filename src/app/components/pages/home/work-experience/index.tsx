@@ -1,28 +1,37 @@
 import { SectionTitle } from '@/app/components/section-title';
 import { ExperienceItem } from './experience-item';
-import { WorkExperience as IWorkExperience } from '@/app/types/work-experience';
+import { MDXContent } from '@/app/lib/mdx';
+import { Dictionary } from '@/app/i18n/dictionaries';
 
 type WorkExperienceProps = {
-  experiences: IWorkExperience[];
+  experiences: Awaited<ReturnType<typeof import('@/app/lib/content').getExperiences>>;
+  dict: Dictionary;
 };
 
-export function WorkExperience({ experiences }: WorkExperienceProps) {
+export function WorkExperience({ experiences, dict }: WorkExperienceProps) {
   return (
-    <section className='container py-16 flex gap-10 md:gap-4 lg:gap-16 flex-col md:flex-row'>
-      <div className='max-w-[420px]'>
+    <section className='container py-20'>
+      <div className='max-w-[640px] mx-auto text-center mb-16'>
         <SectionTitle
-          subtitle='experiências'
-          title='Experiência profissional'
+          subtitle={dict.workExperience.subtitle}
+          title={dict.workExperience.title}
+          className='items-center'
         />
 
-        <p className='text-gray-400 mt-6'>
-          Estou sempre aberto a novos desafios e projetos emocionantes Vamos
-          trabalhar juntos para criar soluções incriveis para sua empresa!
-        </p>
+        <p className='text-zinc-400 mt-6'>{dict.workExperience.cta}</p>
       </div>
-      <div className='flex flex-col gap-4'>
-        {experiences?.map((experience) => (
-          <ExperienceItem key={experience.empresa} experience={experience} />
+
+      <div className='relative max-w-4xl mx-auto'>
+        {experiences?.map((experience, index) => (
+          <div key={experience.slug} className='mb-16 last:mb-0'>
+            <ExperienceItem
+              experience={experience}
+              dict={dict}
+              side={index % 2 === 0 ? 'left' : 'right'}
+            >
+              <MDXContent source={experience.source} />
+            </ExperienceItem>
+          </div>
         ))}
       </div>
     </section>

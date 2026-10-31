@@ -1,102 +1,122 @@
 'use client';
 
+import React from 'react';
 import { Button } from '@/app/components/button';
 import { TechBadge } from '@/app/components/tech-badge';
 import { HiArrowNarrowRight, HiDownload } from 'react-icons/hi';
-import { HomePageInfo } from '@/app/types/pageInfo';
-import { RichText } from '@/app/components/rich-text';
-import { CMSIcon } from '@/app/components/cms-icon';
+import { SVGIcon } from '@/app/components/svg-icon';
 import { motion } from 'framer-motion';
 import { techBadgeAnimation } from '@/app/lib/animations';
-import Image from 'next/image';
+import { HomeData } from '@/app/lib/schemas';
+import { Dictionary } from '@/app/i18n/dictionaries';
 
-type HomeSectionProps = {
-  homeInfo: HomePageInfo;
+type HeroSectionProps = {
+  home: HomeData;
+  dict: Dictionary;
+  children: React.ReactNode;
 };
 
-export function HeroSection({ homeInfo }: HomeSectionProps) {
+export function HeroSection({ home, dict, children }: HeroSectionProps) {
   const handleContact = () => {
     const contactSection = document.querySelector('#contact');
-
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section className='w-full lg:h-[755px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[110px]'>
-      <div className='container flex items-start justify-between flex-col-reverse lg:flex-row'>
-        <motion.div
-          className='w-full lg:max-w-[530px]'
-          initial={{ opacity: 0, x: -100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className='font-mono text-emerald-400'>Olá, meu nome é</p>
-          <h2 className='text-4xl font-medium mt-2'>Gabriel Sousa</h2>
-          <div className='text-gray-400 my-6 text-sm sm:text-base'>
-            <RichText content={homeInfo.introducao.raw} />
-          </div>
+    <section className='relative w-full min-h-[80vh] lg:min-h-[90vh] flex items-center pt-32 pb-20 overflow-hidden'>
+      <div className='container'>
+        <div className='max-w-3xl'>
+          <motion.p
+            className='font-mono text-emerald-400 mb-4'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {dict.hero.greeting}
+          </motion.p>
 
-          <div className='flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]'>
-            {homeInfo.tecnologias.map((tech, i) => (
+          <motion.h1
+            className='text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-zinc-50 mb-6'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            {home.name}
+          </motion.h1>
+
+          <motion.p
+            className='text-xl md:text-2xl text-zinc-400 font-light mb-8'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {home.role}
+          </motion.p>
+
+          <motion.div
+            className='text-zinc-400 text-base md:text-lg leading-relaxed mb-10 max-w-2xl'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {children}
+          </motion.div>
+
+          <motion.div
+            className='flex flex-wrap gap-x-2 gap-y-3 mb-10'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {home.heroTechs.map((tech, i) => (
               <TechBadge
-                name={tech.nome}
-                key={`intro-tech-${tech.nome}`}
+                name={tech}
+                key={`intro-tech-${tech}`}
                 {...techBadgeAnimation}
-                transition={{ duration: 0.5, delay: i * 0.2 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
               />
             ))}
-          </div>
-          <div className='mt-6 lg:mt-10 flex sm: items-center sm:gap-5 flex-col sm:flex-row'>
-            <div className='flex flex-col md:flex-row gap-6 md:gap-4 items-center'>
+          </motion.div>
+
+          <motion.div
+            className='flex flex-col sm:flex-row items-start sm:items-center gap-6'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <div className='flex flex-col sm:flex-row gap-4'>
               <Button className='w-max shadow-button' onClick={handleContact}>
-                Entre em contato
+                {dict.hero.cta}
                 <HiArrowNarrowRight size={18} />
               </Button>
               <a
                 href='/pdf/gabriel-sousa.pdf'
-                download='gabriel-sousa-currículo.pdf'
+                download='gabriel-sousa-curriculum.pdf'
               >
                 <Button className='w-max shadow-button'>
-                  Baixar currículo
+                  {dict.hero.resume}
                   <HiDownload size={18} />
                 </Button>
               </a>
             </div>
 
-            <div className='text-gray-600 text-2xl flex items-center h-20 gap-3'>
-              {homeInfo.redeSocials.map((contact, index) => (
+            <div className='text-zinc-500 text-2xl flex items-center gap-4'>
+              {home.socials.map((contact, index) => (
                 <a
                   href={contact.url}
                   key={`contact-${index}`}
                   target='_blank'
-                  className='hover:text-gray-100 transition-colors'
+                  rel='noopener noreferrer'
+                  className='hover:text-emerald-500 transition-colors'
                 >
-                  <CMSIcon icon={contact.iconeSvg} />
+                  <SVGIcon icon={contact.icon || ''} />
                 </a>
               ))}
             </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 200, scale: 0.5 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 200, scale: 0.5 }}
-          transition={{ duration: 0.5 }}
-          className='origin-center'
-        >
-          <Image
-            width={420}
-            height={404}
-            src={homeInfo.imagemDePerfil.url}
-            alt='Foto de perfil'
-            loading='lazy'
-            className='w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover'
-          />
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
