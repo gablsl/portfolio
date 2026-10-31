@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Logo } from '@/app/components/header/logo';
 import { Dictionary } from '@/app/i18n/dictionaries';
 import { Lang } from '@/app/lib/schemas';
 
@@ -22,11 +23,8 @@ export function Footer({ dict, lang }: FooterProps) {
       <div className='container py-12'>
         <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-8'>
           <div>
-            <Link
-              href={`/${lang}`}
-              className='text-2xl font-medium text-zinc-50 tracking-tight'
-            >
-              Gabriel
+            <Link href={`/${lang}`} className='inline-flex'>
+              <Logo className='w-9 h-9' />
             </Link>
             <p className='mt-2 text-sm text-zinc-500 max-w-xs'>
               {dict.workExperience.cta}
@@ -48,8 +46,8 @@ export function Footer({ dict, lang }: FooterProps) {
 
         <div className='mt-10 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-zinc-500'>
           <span>
-            {currentYear} Gabriel Sousa. {dict.footer.developedBy}{' '}
-            {dict.footer.by} Gabriel Sousa.
+            {currentYear} Gabriel Leitão. {dict.footer.developedBy}{' '}
+            {dict.footer.by} Gabriel Leitão.
           </span>
         </div>
       </div>

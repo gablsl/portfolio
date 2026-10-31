@@ -9,6 +9,7 @@ export const en = {
     greeting: 'Hello, my name is',
     cta: 'Get in touch',
     resume: 'Download resume',
+    moreTechs: 'and more',
   },
   knowsTechs: {
     subtitle: 'skills',
@@ -22,7 +23,7 @@ export const en = {
   workExperience: {
     subtitle: 'experiences',
     title: 'Work Experience',
-    cta: "I'm always open to new challenges and exciting projects. Let's work together to create amazing solutions for your company!",
+    cta: "I'm always open to new challenges. Let's work together to create amazing solutions!",
     present: 'Present',
     skills: 'Skills',
   },

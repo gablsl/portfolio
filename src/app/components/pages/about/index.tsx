@@ -2,12 +2,14 @@
 
 import { SectionTitle } from '@/app/components/section-title';
 import { SVGIcon } from '@/app/components/svg-icon';
+import { TechIcon } from '@/app/components/tech-icon';
 import { MDXContent } from '@/app/lib/mdx';
 import { HomeData } from '@/app/lib/schemas';
 import { Dictionary } from '@/app/i18n/dictionaries';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { fadeUpAnimation } from '@/app/lib/animations';
+import { KnowTech } from '../home/knows-techs/know-tech';
 
 type AboutContentProps = {
   about: Awaited<ReturnType<typeof import('@/app/lib/content').getAbout>>;
@@ -37,6 +39,7 @@ export function AboutContent({ about, techs, profileImage, dict, children }: Abo
             src={profileImage}
             alt={about.data.title}
             fill
+            sizes='(max-width: 1024px) 100vw, 420px'
             className='object-cover'
             loading='lazy'
           />
@@ -55,16 +58,19 @@ export function AboutContent({ about, techs, profileImage, dict, children }: Abo
         <h3 className='text-xl font-medium mb-6 text-center'>
           Tech stack
         </h3>
-        <div className='grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3'>
-          {techs.map((tech) => (
-            <div
-              key={tech.name}
-              className='p-4 rounded-lg bg-zinc-900/50 border border-white/5 flex items-center justify-between hover:text-emerald-500 transition-colors'
-            >
-              <span>{tech.name}</span>
-              <SVGIcon icon={tech.icon || ''} />
-            </div>
-          ))}
+        {/* Mudança aqui: de grid para flex com flex-wrap */}
+        <div className='flex flex-wrap gap-3 justify-center'>
+          {techs?.map((tech, i) => (
+              <motion.div
+                key={tech.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+              >
+                <KnowTech tech={tech} />
+              </motion.div>
+            ))}
         </div>
       </div>
     </section>

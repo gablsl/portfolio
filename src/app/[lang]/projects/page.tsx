@@ -12,7 +12,7 @@ export function generateMetadata({ params }: { params: { lang: string } }): Meta
   const dict = getDictionary(lang);
   return createMetadata({
     lang,
-    title: `${dict.projects.title} | Gabriel Sousa`,
+    title: `${dict.projects.title} | Gabriel Leitão`,
     description: dict.projects.intro,
     path: '/projects',
   });
@@ -29,7 +29,7 @@ export default async function Projects({
 
   return (
     <>
-      <PageIntroduction dict={dict} lang={lang} />
+      <PageIntroduction dict={dict} />
       <Suspense>
         <ProjectList projects={projects} dict={dict} />
       </Suspense>

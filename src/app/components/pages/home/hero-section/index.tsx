@@ -38,7 +38,7 @@ export function HeroSection({ home, dict, children }: HeroSectionProps) {
           </motion.p>
 
           <motion.h1
-            className='text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-zinc-50 mb-6'
+            className='text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-zinc-50 mb-6 break-words'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -47,7 +47,7 @@ export function HeroSection({ home, dict, children }: HeroSectionProps) {
           </motion.h1>
 
           <motion.p
-            className='text-xl md:text-2xl text-zinc-400 font-light mb-8'
+            className='text-xl md:text-2xl text-zinc-400 font-light mb-8 break-words'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -65,12 +65,12 @@ export function HeroSection({ home, dict, children }: HeroSectionProps) {
           </motion.div>
 
           <motion.div
-            className='flex flex-wrap gap-x-2 gap-y-3 mb-10'
+            className='flex flex-wrap items-center gap-x-2 gap-y-3 mb-10'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            {home.heroTechs.map((tech, i) => (
+            {home.heroTechs.slice(0, 4).map((tech, i) => (
               <TechBadge
                 name={tech}
                 key={`intro-tech-${tech}`}
@@ -78,6 +78,14 @@ export function HeroSection({ home, dict, children }: HeroSectionProps) {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               />
             ))}
+            {home.heroTechs.length > 4 && (
+              <a
+                href='#skills'
+                className='text-sm text-zinc-500 hover:text-emerald-400 transition-colors ml-1'
+              >
+                +{home.heroTechs.length - 4} {dict.hero.moreTechs}
+              </a>
+            )}
           </motion.div>
 
           <motion.div
@@ -86,8 +94,8 @@ export function HeroSection({ home, dict, children }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <div className='flex flex-col sm:flex-row gap-4'>
-              <Button className='w-max shadow-button' onClick={handleContact}>
+            <div className='flex flex-col sm:flex-row gap-3'>
+              <Button onClick={handleContact}>
                 {dict.hero.cta}
                 <HiArrowNarrowRight size={18} />
               </Button>
@@ -95,21 +103,21 @@ export function HeroSection({ home, dict, children }: HeroSectionProps) {
                 href='/pdf/gabriel-sousa.pdf'
                 download='gabriel-sousa-curriculum.pdf'
               >
-                <Button className='w-max shadow-button'>
+                <Button>
                   {dict.hero.resume}
                   <HiDownload size={18} />
                 </Button>
               </a>
             </div>
 
-            <div className='text-zinc-500 text-2xl flex items-center gap-4'>
+            <div className='text-zinc-500 text-xl flex items-center gap-4'>
               {home.socials.map((contact, index) => (
                 <a
                   href={contact.url}
                   key={`contact-${index}`}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='hover:text-emerald-500 transition-colors'
+                  className='hover:text-emerald-400 transition-colors'
                 >
                   <SVGIcon icon={contact.icon || ''} />
                 </a>

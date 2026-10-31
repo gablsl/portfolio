@@ -34,7 +34,7 @@ export async function generateMetadata({
 
   return createMetadata({
     lang: currentLang,
-    title: `${post.data.title} | Gabriel Sousa`,
+    title: `${post.data.title} | Gabriel Leitão`,
     description: post.data.description,
     path: `/blog/${slug}`,
   });

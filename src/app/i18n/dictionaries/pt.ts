@@ -11,11 +11,11 @@ export const pt: Dictionary = {
     greeting: 'Olá, meu nome é',
     cta: 'Entre em contato',
     resume: 'Baixar currículo',
+    moreTechs: 'e mais',
   },
   knowsTechs: {
     subtitle: 'competências',
     title: 'Conhecimentos',
-    experienceSuffix: 'de experiência',
   },
   highlightedProjects: {
     subtitle: 'destaques',
@@ -25,7 +25,7 @@ export const pt: Dictionary = {
   workExperience: {
     subtitle: 'experiências',
     title: 'Experiência profissional',
-    cta: 'Estou sempre aberto a novos desafios e projetos emocionantes. Vamos trabalhar juntos para criar soluções incríveis para sua empresa!',
+    cta: 'Estou sempre aberto a novos desafios. Vamos trabalhar juntos para criar soluções incríveis!',
     present: 'Atual',
     skills: 'Competências',
   },

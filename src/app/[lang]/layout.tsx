@@ -5,7 +5,20 @@ import { Footer } from '../components/footer';
 import { BackToTop } from '../components/back-to-top';
 import { getCurrentLang, Lang, langs } from '../lib/schemas';
 import { getDictionary } from '../i18n/dictionaries';
+import { createMetadata, viewport as defaultViewport } from '../lib/metadata';
 import '../globals.css';
+
+export { defaultViewport as viewport };
+
+export async function generateMetadata({ params }: { params: { lang: string } }) {
+  const lang = getCurrentLang(params.lang);
+  const dict = getDictionary(lang);
+  return createMetadata({
+    lang,
+    title: `Gabriel Leitão | ${dict.nav.home}`,
+    path: '',
+  });
+}
 
 const sora = Sora({
   subsets: ['latin'],

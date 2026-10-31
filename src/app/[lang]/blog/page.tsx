@@ -10,7 +10,8 @@ export function generateMetadata({ params }: { params: { lang: string } }): Meta
   const dict = getDictionary(lang);
   return createMetadata({
     lang,
-    title: `${dict.blog.title} | Gabriel Sousa`,
+    title: `${dict.blog.title} | Gabriel Leitão`,
+    description: dict.projects.intro,
     path: '/blog',
   });
 }

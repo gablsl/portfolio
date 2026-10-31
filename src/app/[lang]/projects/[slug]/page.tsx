@@ -45,7 +45,7 @@ export async function generateMetadata({
 
   return createMetadata({
     lang: currentLang,
-    title: `${project.data.title} | Gabriel Sousa`,
+    title: `${project.data.title} | Gabriel Leitão`,
     description: project.data.shortDescription,
     path: `/projects/${slug}`,
     images: [

@@ -35,25 +35,21 @@ export function ExperienceItem({
 
   return (
     <motion.div
-      className='relative grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-6 md:gap-12 items-start'
+      className='relative grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-6 md:gap-12'
       initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      {/* Mobile line */}
-      <div className='md:hidden absolute left-[19px] top-0 bottom-0 w-px bg-zinc-800' />
+      {/* Timeline line */}
+      <div className='absolute left-[19px] md:left-1/2 top-0 bottom-0 w-px bg-zinc-800 md:-translate-x-1/2' />
 
-      {/* Desktop center line + dot */}
-      <div className='hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-zinc-800 -translate-x-1/2' />
-      <div className='hidden md:flex absolute left-1/2 top-1 w-4 h-4 rounded-full bg-zinc-950 border-2 border-emerald-500 -translate-x-1/2 items-center justify-center'>
-        <span className='w-1.5 h-1.5 rounded-full bg-emerald-500' />
-      </div>
-
-      {/* Left side (desktop) */}
+      {/* Desktop left column */}
       <div
         className={`hidden md:flex flex-col ${
-          isLeft ? 'md:col-start-1 md:text-right md:items-end' : 'md:col-start-1 md:items-end md:justify-center'
+          isLeft
+            ? 'md:col-start-1 md:items-end md:text-right'
+            : 'md:col-start-1 md:items-end'
         }`}
       >
         {isLeft ? (
@@ -64,7 +60,7 @@ export function ExperienceItem({
             start={start}
             end={end}
             technologies={technologies}
-            dict={dict}
+            align='right'
           >
             {children}
           </Content>
@@ -73,18 +69,20 @@ export function ExperienceItem({
         )}
       </div>
 
-      {/* Center spacer */}
-      <div className='hidden md:block md:col-start-2' />
+      {/* Desktop center column */}
+      <div className='hidden md:flex md:col-start-2 items-start justify-center pt-1'>
+        {isLeft ? <Logo company={company} companyLogo={companyLogo} /> : null}
+      </div>
 
-      {/* Right side (desktop) */}
+      {/* Desktop right column */}
       <div
         className={`hidden md:flex flex-col ${
-          isLeft ? 'md:col-start-3 md:items-start md:justify-center' : 'md:col-start-3 md:items-start'
+          isLeft
+            ? 'md:col-start-3 md:items-start'
+            : 'md:col-start-3 md:items-start md:text-left'
         }`}
       >
-        {isLeft ? (
-          <Logo company={company} companyLogo={companyLogo} />
-        ) : (
+        {isLeft ? null : (
           <Content
             role={role}
             company={company}
@@ -92,7 +90,7 @@ export function ExperienceItem({
             start={start}
             end={end}
             technologies={technologies}
-            dict={dict}
+            align='left'
           >
             {children}
           </Content>
@@ -111,7 +109,7 @@ export function ExperienceItem({
           start={start}
           end={end}
           technologies={technologies}
-          dict={dict}
+          align='left'
         >
           {children}
         </Content>
@@ -150,7 +148,7 @@ type ContentProps = {
   start: string;
   end: string;
   technologies: string[];
-  dict: Dictionary;
+  align: 'left' | 'right';
   children: React.ReactNode;
 };
 
@@ -161,18 +159,18 @@ function Content({
   start,
   end,
   technologies,
-  dict,
+  align,
   children,
 }: ContentProps) {
   return (
-    <div className='max-w-md'>
+    <div className='w-full max-w-full md:max-w-md'>
       <div className='flex flex-col gap-1'>
         <h4 className='text-lg font-medium text-zinc-100'>{role}</h4>
         <a
           href={companyUrl}
           target='_blank'
           rel='noopener noreferrer'
-          className='text-sm text-emerald-500 hover:text-emerald-400 transition-colors w-fit'
+          className='text-sm text-emerald-500 hover:text-emerald-400 transition-colors inline-block'
         >
           @ {company}
         </a>
@@ -181,15 +179,15 @@ function Content({
         </p>
       </div>
 
-      <div className='text-zinc-400 prose prose-invert prose-sm max-w-none mt-3'>
+      <div className='text-zinc-400 prose prose-invert prose-sm max-w-none mt-3 [&_ul]:list-none [&_ul]:pl-0 [&_li]:relative [&_li]:pl-0'>
         {children}
       </div>
 
-      <p className='text-zinc-500 text-xs font-medium uppercase tracking-wider mb-2 mt-5'>
-        {dict.workExperience.skills}
-      </p>
-
-      <div className='flex gap-x-2 gap-y-2 flex-wrap'>
+      <div
+        className={`flex gap-x-2 gap-y-2 flex-wrap mt-5 ${
+          align === 'right' ? 'md:justify-end' : 'md:justify-start'
+        }`}
+      >
         {technologies.map((tech, i) => (
           <TechBadge
             name={tech}

@@ -13,7 +13,7 @@ type KnowTechsProps = {
 
 export function KnowsTechs({ techs, dict }: KnowTechsProps) {
   return (
-    <section className='container py-20'>
+    <section id='skills' className='container py-20'>
       <SectionTitle
         subtitle={dict.knowsTechs.subtitle}
         title={dict.knowsTechs.title}

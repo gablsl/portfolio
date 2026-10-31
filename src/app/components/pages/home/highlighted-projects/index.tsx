@@ -31,7 +31,7 @@ export function HighlightedProjects({ projects, dict, lang }: HighlightedProject
         <p className='flex items-center gap-1.5'>
           <span className='text-zinc-400'>{dict.highlightedProjects.cta}?</span>
           <Link href={`/${lang}/projects`} className='inline-flex'>
-            {dict.highlightedProjects.cta}
+            Go to projects
             <HiArrowNarrowRight />
           </Link>
         </p>
